@@ -91,8 +91,11 @@ In this exercise you will:
 #### Reflection Questions
 
 1. **How do you link `prev` and `next` pointers correctly using a static array?**
+- Jeder Knoten zeigt mit next auf das nächste Element im Array und mit prev auf das vorherige Element. Beim ersten Knoten ist prev = NULL und beim letzten Knoten ist next = NULL, da dort die Liste beginnt bzw. endet.
 2. **What are advantages and limitations of compile-time vs. dynamic allocation?**
+- Der Vorteil ist, dass der Speicher bereits beim Programmstart fest reserviert ist und kein malloc() oder free() benötigt wird. Der Nachteil ist, dass die Größe der Liste nicht zur Laufzeit verändert werden kann und somit unflexibel ist.
 3. **How would you extend this static list to include additional data fields?**
+- Man kann die Struktur DNode um zusätzliche Variablen erweitern, zum Beispiel char *name, int alter oder float wert. Jedes Listenelement kann dann neben den Zeigern auch diese zusätzlichen Informationen speichern.
 
 ---
 
@@ -159,8 +162,11 @@ In this exercise you will:
 #### Reflection Questions
 
 1. **Why is `malloc` necessary when adding nodes dynamically?**
+- malloc reserviert während der Programmausführung Speicher für einen neuen Knoten. Dadurch kann die Liste beliebig wachsen, ohne dass ihre Größe vorher festgelegt werden muss.
 2. **How can you traverse the list to print each node’s address and value?**
+- Man beginnt beim ersten Knoten (head) und folgt mit dem next-Zeiger zum nächsten Knoten. Dabei gibt man in jeder Schleife die Speicheradresse (%p) und den gespeicherten Wert (value) aus, bis next den Wert NULL hat.
 3. **What are the consequences of not freeing the list before exit?**
+- Wird die Liste nicht mit free() freigegeben, bleibt der reservierte Speicher belegt und es entsteht ein Speicherleck (Memory Leak). Bei kleinen Programmen fällt das meist nicht auf, bei größeren oder länger laufenden Programmen kann dadurch unnötig viel Arbeitsspeicher verbraucht werden.
 
 ---
 
@@ -244,8 +250,11 @@ gcc -o solutions/json_main solutions/json_main.c solutions/json_list.o -ljansson
 #### Reflection Questions
 
 1. **How does using `getopt` make the program more flexible than `argv[1]`?**
+- Mit getopt können Optionen wie -i in beliebiger Reihenfolge angegeben werden. Außerdem erkennt getopt ungültige oder fehlende Optionen und erleichtert so die Benutzung des Programms.
 2. **What happens if the user omits the `-i` option?**
+- Dann bleibt der Dateiname leer (NULL) und das Programm ruft die Funktion usage() auf. Diese zeigt die richtige Verwendung des Programms an und beendet es mit einer Fehlermeldung.
 3. **How can you validate that the JSON file loaded is indeed an array?**
+- Nach dem Laden der Datei kann man die Funktion json_is_array() aus der Jansson-Bibliothek verwenden. Gibt sie true zurück, handelt es sich um ein JSON-Array, andernfalls sollte das Programm eine Fehlermeldung ausgeben.
 
 ---
 
